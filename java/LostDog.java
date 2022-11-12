@@ -4,18 +4,20 @@ class LostDog {
     Integer age;
     String sex;
     String breed;
-    Pair<Double,Double> location;
+    Pair<Double, Double> location;
     String city;
     String photo;
     String message;
     String ownerName;
     String ownerEmail;
     String ownerNumber;
-    Map<String,String> physicalAttributes;
+    Map<String, String> physicalAttributes;
+
     enum Status {
         Lost,
         Found
     }
+
     Status currentStatus;
 
     public LostDog(Double uid, String name, Integer age, String sex, String breed, Pair<Double, Double> location,
