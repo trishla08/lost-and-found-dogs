@@ -1,15 +1,15 @@
 import java.util.List;
 
-public interface DogRepository<T> {
+public interface FoundDogRepository{
 
-    void create(T obj);
+    void create(FoundDog obj);
 
-    T read(Integer uid);
+    FoundDog read(Double uid);
 
-    List<T> readAll();
+    List<FoundDog> readAll();
 
-    T update(Integer uid, T obj);
+    void update(Double uid, FoundDog obj);
 
-    void delete(Integer uid);
+    void delete(Double uid);
     
 }

@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,14 +13,25 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
 
     private final String fileName = "foundDog.dat";
 
+    private static File f = new File("foundDog.dat");
+
     @Override
     public void create(FoundDog obj) {
         try {
-            FileOutputStream fos = new FileOutputStream(fileName);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            FileOutputStream fos = new FileOutputStream(fileName, true);
 
             // write object to file
-            oos.writeObject(obj);
+            Object foundObj = (Object) obj;
+            if (f.length() == 0) {
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(foundObj);
+                oos.close();
+            } else {
+                CustomObjectOutputStream oos = null;
+                oos = new CustomObjectOutputStream(fos);
+                oos.writeObject(foundObj);
+                oos.close();
+            }
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -35,12 +47,13 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
 
             // read object from file
             Object obj = null;
-            while ((obj = ois.readObject()) != null) {
+            while (fis.available() != 0) {
+                obj = ois.readObject();
                 dogObject = (FoundDog) obj;
 
-                if (dogObject.getUid() == uid) {
+                if (dogObject.getUid().equals(uid)) {
+                    ois.close();
                     return dogObject;
-
                 }
             }
 
@@ -49,7 +62,7 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
             // return list;
 
         } catch (IOException | ClassNotFoundException ex) {
-
+            ex.printStackTrace();
         }
         return dogObject;
     }
@@ -64,7 +77,8 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
 
             // read object from file
             Object obj = null;
-            while ((obj = ois.readObject()) != null) {
+            while (fis.available() != 0) {
+                obj = ois.readObject();
                 FoundDog item = (FoundDog) obj;
                 list.add(item);
             }
@@ -74,6 +88,7 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
             return list;
 
         } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
             return list;
         }
     }
@@ -83,7 +98,7 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
         try {
             List<FoundDog> list = readAll();
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getUid() == uid) {
+                if (list.get(i).getUid().equals(uid)) {
                     list.set(i, obj);
                 }
             }
@@ -93,7 +108,7 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
                 create(list.get(i));
             }
         } catch (FileNotFoundException ex) {
-
+            ex.printStackTrace();
         }
     }
 
@@ -102,7 +117,7 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
         try {
             List<FoundDog> list = readAll();
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getUid() == uid) {
+                if (list.get(i).getUid().equals(uid)) {
                     list.remove(i);
                 }
             }
@@ -112,7 +127,7 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
                 create(list.get(i));
             }
         } catch (FileNotFoundException ex) {
-
+            ex.printStackTrace();
         }
     }
 

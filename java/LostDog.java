@@ -1,10 +1,13 @@
-class LostDog {
+import java.io.Serializable;
+import java.util.Map;
+
+class LostDog implements Serializable{
     Double uid;
     String name;
     Integer age;
     String sex;
     String breed;
-    Pair<Double, Double> location;
+    Location location;
     String city;
     String photo;
     String message;
@@ -20,7 +23,7 @@ class LostDog {
 
     Status currentStatus;
 
-    public LostDog(Double uid, String name, Integer age, String sex, String breed, Pair<Double, Double> location,
+    public LostDog(Double uid, String name, Integer age, String sex, String breed, Location location,
             String city, String photo, String message, String ownerName, String ownerEmail, String ownerNumber,
             Map<String, String> physicalAttributes, LostDog.Status currentStatus) {
         this.uid = uid;
@@ -59,7 +62,7 @@ class LostDog {
         return breed;
     }
 
-    public Pair<Double, Double> getLocation() {
+    public Location getLocation() {
         return location;
     }
 
