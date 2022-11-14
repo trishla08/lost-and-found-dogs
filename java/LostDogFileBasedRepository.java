@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,14 +13,25 @@ public class LostDogFileBasedRepository implements LostDogRepository {
 
     private final String fileName = "lostDog.dat";
 
+    private static File f = new File("lostDog.dat");
+
     @Override
     public void create(LostDog obj) {
         try {
-            FileOutputStream fos = new FileOutputStream(fileName);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            FileOutputStream fos = new FileOutputStream(fileName, true);
 
             // write object to file
-            oos.writeObject(obj);
+            Object lostObj = (Object) obj;
+            if (f.length() == 0) {
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(lostObj);
+                oos.close();
+            } else {
+                CustomObjectOutputStream oos = null;
+                oos = new CustomObjectOutputStream(fos);
+                oos.writeObject(lostObj);
+                oos.close();
+            }
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -35,12 +47,12 @@ public class LostDogFileBasedRepository implements LostDogRepository {
 
             // read object from file
             Object obj = null;
-            while ((obj = ois.readObject()) != null) {
+            while (fis.available() != 0) {
+                obj = ois.readObject();
                 dogObject = (LostDog) obj;
-
-                if (dogObject.getUid() == uid) {
+                if (dogObject.getUid().equals(uid)) {
+                    ois.close();
                     return dogObject;
-
                 }
             }
 
@@ -49,7 +61,7 @@ public class LostDogFileBasedRepository implements LostDogRepository {
             // return list;
 
         } catch (IOException | ClassNotFoundException ex) {
-
+            ex.printStackTrace();
         }
         return dogObject;
     }
@@ -57,14 +69,14 @@ public class LostDogFileBasedRepository implements LostDogRepository {
     @Override
     public List<LostDog> readAll() {
         List<LostDog> list = new ArrayList<LostDog>();
-        ;
         try {
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             // read object from file
             Object obj = null;
-            while ((obj = ois.readObject()) != null) {
+            while (fis.available() != 0) {
+                obj = ois.readObject();
                 LostDog item = (LostDog) obj;
                 list.add(item);
             }
@@ -74,6 +86,7 @@ public class LostDogFileBasedRepository implements LostDogRepository {
             return list;
 
         } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
             return list;
         }
     }
@@ -83,7 +96,7 @@ public class LostDogFileBasedRepository implements LostDogRepository {
         try {
             List<LostDog> list = readAll();
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getUid() == uid) {
+                if (list.get(i).getUid().equals(uid)) {
                     list.set(i, obj);
                 }
             }
@@ -93,7 +106,7 @@ public class LostDogFileBasedRepository implements LostDogRepository {
                 create(list.get(i));
             }
         } catch (FileNotFoundException ex) {
-
+            ex.printStackTrace();
         }
     }
 
@@ -102,7 +115,7 @@ public class LostDogFileBasedRepository implements LostDogRepository {
         try {
             List<LostDog> list = readAll();
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getUid() == uid) {
+                if (list.get(i).getUid().equals(uid)) {
                     list.remove(i);
                 }
             }
@@ -112,7 +125,7 @@ public class LostDogFileBasedRepository implements LostDogRepository {
                 create(list.get(i));
             }
         } catch (FileNotFoundException ex) {
-
+            ex.printStackTrace();
         }
     }
 

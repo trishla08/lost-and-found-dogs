@@ -1,8 +1,11 @@
-class FoundDog {
+import java.io.Serializable;
+import java.util.Map;
+
+class FoundDog implements Serializable{
     Double uid;
     String sex;
     String breed;
-    Pair<Double,Double> location;
+    Location location;
     String city;
     String photo;
     String message;
@@ -11,7 +14,7 @@ class FoundDog {
     String finderNumber;
     Map<String,String> physicalAttributes;
 
-    public FoundDog(Double uid, String sex, String breed, Pair<Double, Double> location, String city, String photo,
+    public FoundDog(Double uid, String sex, String breed, Location location, String city, String photo,
             String message, String finderName, String finderEmail, String finderNumber,
             Map<String, String> physicalAttributes) {
         this.uid = uid;
@@ -39,7 +42,7 @@ class FoundDog {
         return breed;
     }
 
-    public Pair<Double, Double> getLocation() {
+    public Location getLocation() {
         return location;
     }
 
