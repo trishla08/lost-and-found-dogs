@@ -1,5 +1,8 @@
 package com.trishla.aurora.dtos;
 
+import lombok.Getter;
+
+@Getter
 public class MapLocation {
     final double latitude;
     final double longitude;
@@ -26,13 +29,5 @@ public class MapLocation {
         public MapLocation build() {
             return new MapLocation(this);
         }
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
     }
 }

@@ -5,6 +5,9 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
+import lombok.Getter;
+
+@Getter
 public class FoundDog {
     final String uid;
     final String sex;
@@ -103,49 +106,5 @@ public class FoundDog {
         public FoundDog build() {
             return new FoundDog(this);
         }
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public MapLocation getLocation() {
-        return location;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getFinderName() {
-        return finderName;
-    }
-
-    public String getFinderEmail() {
-        return finderEmail;
-    }
-
-    public String getFinderNumber() {
-        return finderNumber;
-    }
-
-    public Map<String, String> getPhysicalAttributes() {
-        return physicalAttributes;
     }
 }

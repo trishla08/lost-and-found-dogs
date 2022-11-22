@@ -5,6 +5,9 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
+import lombok.Getter;
+
+@Getter
 public class LostDog {
     final String uid;
     final String name;
@@ -132,61 +135,5 @@ public class LostDog {
         public LostDog build() {
             return new LostDog(this);
         }
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public MapLocation getLocation() {
-        return location;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public String getOwnerEmail() {
-        return ownerEmail;
-    }
-
-    public String getOwnerNumber() {
-        return ownerNumber;
-    }
-
-    public Map<String, String> getPhysicalAttributes() {
-        return physicalAttributes;
-    }
-
-    public Status getCurrentStatus() {
-        return currentStatus;
     }
 }
