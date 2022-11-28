@@ -23,17 +23,17 @@ public class APIs {
     public APIs() {
     }
 
-    LostDog reportMissing(LostDog lostDog) {
+    public LostDog reportMissing(LostDog lostDog) {
         lostDogRepository.create(lostDog);
         return lostDog;
     }
 
-    FoundDog reportFound(FoundDog foundDog) {
+    public FoundDog reportFound(FoundDog foundDog) {
         foundDogRepository.create(foundDog);
         return foundDog;
     }
 
-    GetDogsResponse<LostDog> getAllLostDogs(GetDogsRequest req) {
+    public GetDogsResponse<LostDog> getAllLostDogs(GetDogsRequest req) {
         List<LostDog> lostDogs = lostDogRepository.readAll();
         List<LostDog> sortedLostDogs = SortDogsList.sortLostDogsList(lostDogs, req.getSort());
 
@@ -43,7 +43,7 @@ public class APIs {
                 .build();
     }
 
-    GetDogsResponse<FoundDog> getAllFoundDogs(GetDogsRequest req) {
+    public GetDogsResponse<FoundDog> getAllFoundDogs(GetDogsRequest req) {
         List<FoundDog> foundDogs = foundDogRepository.readAll();
         List<FoundDog> sortedFoundDogs = SortDogsList.sortFoundDogsList(foundDogs, req.getSort());
 
@@ -53,11 +53,19 @@ public class APIs {
                 .build();
     }
 
-    LostDog getLostDogDetails(String UID) {
+    public LostDog getLostDogDetails(String UID) {
         return lostDogRepository.read(UID);
     }
 
-    FoundDog getFoundDogDetails(String UID) {
+    public FoundDog getFoundDogDetails(String UID) {
         return foundDogRepository.read(UID);
+    }
+
+    public void updateLostDog(LostDog lostDog) {
+        lostDogRepository.update(lostDog);
+    }
+
+    public void updateFoundDog(FoundDog foundDog) {
+        foundDogRepository.update(foundDog);
     }
 }
