@@ -1,5 +1,6 @@
 package com.trishla.aurora.dtos;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 
 @Getter
-public class LostDog {
+public class LostDog implements Serializable{
     final String uid;
     final String name;
     final int age;

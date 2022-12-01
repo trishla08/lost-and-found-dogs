@@ -49,7 +49,6 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
             while (fis.available() != 0) {
                 obj = ois.readObject();
                 dogObject = (FoundDog) obj;
-
                 if (dogObject.getUid().equals(uid)) {
                     ois.close();
                     return dogObject;
@@ -112,11 +111,13 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
     }
 
     @Override
-    public void delete(String uid) {
+    public FoundDog delete(String uid) {
+        FoundDog deletedObject = null;
         try {
             List<FoundDog> list = readAll();
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getUid().equals(uid)) {
+                    deletedObject = list.get(i);
                     list.remove(i);
                 }
             }
@@ -128,6 +129,7 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }
+        return deletedObject;
     }
 
 }

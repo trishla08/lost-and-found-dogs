@@ -115,11 +115,13 @@ public class LostDogFileBasedRepository implements LostDogRepository {
     }
 
     @Override
-    public void delete(String uid) {
+    public LostDog delete(String uid) {
+        LostDog deletedObject = null;
         try {
             List<LostDog> list = readAll();
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getUid().equals(uid)) {
+                    deletedObject = list.get(i);
                     list.remove(i);
                 }
             }
@@ -131,6 +133,7 @@ public class LostDogFileBasedRepository implements LostDogRepository {
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }
+        return deletedObject;
     }
 
 }

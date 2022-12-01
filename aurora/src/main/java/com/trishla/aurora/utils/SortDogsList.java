@@ -7,8 +7,7 @@ import com.trishla.aurora.dtos.FoundDog;
 import com.trishla.aurora.dtos.LostDog;
 
 public class SortDogsList {
-    public static List<LostDog> sortLostDogsList(List<LostDog> rawList, SortContext sortContext) {
-        
+    public static List<LostDog> sortLostDogsList(List<LostDog> rawList, SortContext sortContext) {   
         return rawList;
     };
 

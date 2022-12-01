@@ -13,5 +13,5 @@ public interface FoundDogRepository {
 
     void update(FoundDog obj);
 
-    void delete(String id);
+    FoundDog delete(String id);
 }
