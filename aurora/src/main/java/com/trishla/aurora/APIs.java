@@ -68,4 +68,12 @@ public class APIs {
     public void updateFoundDog(FoundDog foundDog) {
         foundDogRepository.update(foundDog);
     }
+
+    public LostDog deleteLostDog(String UID) {
+        return lostDogRepository.delete(UID);
+    }
+
+    public FoundDog deleteFoundDog(String UID) {
+        return foundDogRepository.delete(UID);
+    }
 }
