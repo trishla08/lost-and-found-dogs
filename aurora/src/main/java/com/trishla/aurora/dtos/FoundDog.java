@@ -49,57 +49,57 @@ public class FoundDog implements Serializable {
         String finderNumber;
         Map<String, String> physicalAttributes = new HashMap<>();
         
-        public Builder uid(String uid) {
+        public Builder setUid(String uid) {
             this.uid = uid;
             return this;
         }
         
-        public Builder sex(String sex) {
+        public Builder setSex(String sex) {
             this.sex = sex;
             return this;
         }
         
-        public Builder breed(String breed) {
+        public Builder setBreed(String breed) {
             this.breed = breed;
             return this;
         }
         
-        public Builder location(MapLocation location) {
+        public Builder setLocation(MapLocation location) {
             this.location = location;
             return this;
         }
         
-        public Builder city(String city) {
+        public Builder setCity(String city) {
             this.city = city;
             return this;
         }
         
-        public Builder photo(String photo) {
+        public Builder setPhoto(String photo) {
             this.photo = photo;
             return this;
         }
         
-        public Builder message(String message) {
+        public Builder setMessage(String message) {
             this.message = message;
             return this;
         }
         
-        public Builder finderName(String finderName) {
+        public Builder setFinderName(String finderName) {
             this.finderName = finderName;
             return this;
         }
         
-        public Builder finderEmail(String finderEmail) {
+        public Builder setFinderEmail(String finderEmail) {
             this.finderEmail = finderEmail;
             return this;
         }
         
-        public Builder finderNumber(String finderNumber) {
+        public Builder setFinderNumber(String finderNumber) {
             this.finderNumber = finderNumber;
             return this;
         }
         
-        public Builder physicalAttributes(Map<String, String> physicalAttributes) {
+        public Builder setPhysicalAttributes(Map<String, String> physicalAttributes) {
             this.physicalAttributes.putAll(physicalAttributes);
             return this;
         }

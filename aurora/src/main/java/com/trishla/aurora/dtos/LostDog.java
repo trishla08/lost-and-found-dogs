@@ -7,23 +7,25 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-public class LostDog implements Serializable{
-    final String uid;
-    final String name;
-    final int age;
-    final String sex;
-    final String breed;
-    final MapLocation location;
-    final String city;
-    final String photo;
-    final String message;
-    final String ownerName;
-    final String ownerEmail;
-    final String ownerNumber;
-    final ImmutableMap<String, String> physicalAttributes;
-    final Status currentStatus;
+@NoArgsConstructor
+public class LostDog implements Serializable {
+    String uid;
+    String name;
+    int age;
+    String sex;
+    String breed;
+    MapLocation location;
+    String city;
+    String photo;
+    String message;
+    String ownerName;
+    String ownerEmail;
+    String ownerNumber;
+    ImmutableMap<String, String> physicalAttributes;
+    Status currentStatus;
 
     public enum Status {
         Lost,
@@ -62,79 +64,87 @@ public class LostDog implements Serializable{
         String ownerNumber;
         Map<String, String> physicalAttributes = new HashMap<>();
         Status currentStatus;
-        
-        public Builder uid(String uid) {
+
+        public Builder setUid(String uid) {
             this.uid = uid;
             return this;
         }
-        
-        public Builder name(String name) {
+
+        public Builder setName(String name) {
             this.name = name;
             return this;
         }
-        
-        public Builder age(int age) {
+
+        public Builder setAge(int age) {
             this.age = age;
             return this;
         }
-        
-        public Builder sex(String sex) {
+
+        public Builder setSex(String sex) {
             this.sex = sex;
             return this;
         }
-        
-        public Builder breed(String breed) {
+
+        public Builder setBreed(String breed) {
             this.breed = breed;
             return this;
         }
-        
-        public Builder location(MapLocation location) {
+
+        public Builder setLocation(MapLocation location) {
             this.location = location;
             return this;
         }
-        
-        public Builder city(String city) {
+
+        public Builder setCity(String city) {
             this.city = city;
             return this;
         }
-        
-        public Builder photo(String photo) {
+
+        public Builder setPhoto(String photo) {
             this.photo = photo;
             return this;
         }
-        
-        public Builder message(String message) {
+
+        public Builder setMessage(String message) {
             this.message = message;
             return this;
         }
-        
+
         public Builder ownerName(String ownerName) {
             this.ownerName = ownerName;
             return this;
         }
-        
-        public Builder ownerEmail(String ownerEmail) {
+
+        public Builder setOwnerEmail(String ownerEmail) {
             this.ownerEmail = ownerEmail;
             return this;
         }
-        
-        public Builder ownerNumber(String ownerNumber) {
+
+        public Builder setOwnerNumber(String ownerNumber) {
             this.ownerNumber = ownerNumber;
             return this;
         }
-        
-        public Builder physicalAttributes(Map<String, String> physicalAttributes) {
+
+        public Builder setPhysicalAttributes(Map<String, String> physicalAttributes) {
             this.physicalAttributes.putAll(physicalAttributes);
             return this;
         }
-        
-        public Builder currentStatus(Status currentStatus) {
+
+        public Builder setCurrentStatus(Status currentStatus) {
             this.currentStatus = currentStatus;
             return this;
         }
 
         public LostDog build() {
             return new LostDog(this);
+        }
+
+        @Override
+        public String toString() {
+            return "Builder [uid=" + uid + ", name=" + name + ", age=" + age + ", sex=" + sex + ", breed=" + breed
+                    + ", location=" + location + ", city=" + city + ", photo=" + photo + ", message=" + message
+                    + ", ownerName=" + ownerName + ", ownerEmail=" + ownerEmail + ", ownerNumber=" + ownerNumber
+                    + ", physicalAttributes=" + physicalAttributes + ", currentStatus=" + currentStatus + "]";
         }
     }
 }

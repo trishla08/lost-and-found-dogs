@@ -6,7 +6,12 @@ import lombok.Getter;
 public class MapLocation {
     final double latitude;
     final double longitude;
-    
+
+    public MapLocation(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     private MapLocation(Builder builder) {
         this.latitude = builder.latitude;
         this.longitude = builder.longitude;
@@ -15,13 +20,13 @@ public class MapLocation {
     public static class Builder {
         double latitude;
         double longitude;
-        
-        public Builder latitude(double latitude) {
+
+        public Builder setLatitude(double latitude) {
             this.latitude = latitude;
             return this;
         }
-        
-        public Builder longitude(double longitude) {
+
+        public Builder setLongitude(double longitude) {
             this.longitude = longitude;
             return this;
         }
