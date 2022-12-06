@@ -18,37 +18,37 @@ import com.trishla.aurora.dtos.LostDog;
 @RestController
 public class LostDogController {
 
-	@PostMapping(value="/v1/dog/lost")
-	public LostDog addLostDog(@RequestBody LostDog.Builder lostDogBuilder) {
-		APIs apis = new APIs();
+    @PostMapping(value="/v1/dog/lost")
+    public LostDog addLostDog(@RequestBody LostDog.Builder lostDogBuilder) {
+        APIs apis = new APIs();
         return apis.reportMissing(lostDogBuilder.build());
-	}
+    }
 
     @GetMapping("/v1/dog/lost")
-	public List<LostDog> getAllLostDogs() {
-		APIs apis = new APIs();
+    public List<LostDog> getAllLostDogs() {
+        APIs apis = new APIs();
         GetDogsRequest request = new GetDogsRequest();
         GetDogsResponse<LostDog> response = apis.getAllLostDogs(request);
-		return response.getDogs();
-	}
+        return response.getDogs();
+    }
 
     @GetMapping("/v1/dog/lost/{id}")
-	public LostDog getLostDogDetails(@PathVariable String id) {
-		APIs apis = new APIs();
+    public LostDog getLostDogDetails(@PathVariable String id) {
+        APIs apis = new APIs();
         LostDog lostDog = apis.getLostDogDetails(id);
-		return lostDog;
-	}
+        return lostDog;
+    }
 
     @PutMapping("/v1/dog/lost/{id}")
-	public void updateLost(@PathVariable String id, @RequestBody LostDog.Builder lostDogBuilder) {
-		APIs apis = new APIs();
+    public void updateLost(@PathVariable String id, @RequestBody LostDog.Builder lostDogBuilder) {
+        APIs apis = new APIs();
         apis.updateLostDog(lostDogBuilder.build());
-	}
+    }
 
     @DeleteMapping("/v1/dog/lost/{id}")
-	public LostDog deleteLost(@PathVariable String id) {
-		APIs apis = new APIs();
+    public LostDog deleteLost(@PathVariable String id) {
+        APIs apis = new APIs();
         LostDog deletedDog = apis.deleteLostDog(id);
-		return deletedDog;
-	}
+        return deletedDog;
+    }
 }

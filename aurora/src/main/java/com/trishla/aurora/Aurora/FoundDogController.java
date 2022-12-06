@@ -18,35 +18,35 @@ import com.trishla.aurora.dtos.responses.GetDogsResponse;
 @RestController
 public class FoundDogController {
 
-	@PostMapping(value="/v1/dog/found")
-	public FoundDog addFoundDog(@RequestBody FoundDog.Builder foundDogBuilder) {
-		APIs apis = new APIs();
+    @PostMapping(value="/v1/dog/found")
+    public FoundDog addFoundDog(@RequestBody FoundDog.Builder foundDogBuilder) {
+        APIs apis = new APIs();
         return apis.reportFound(foundDogBuilder.build());
-	}
+    }
 
     @GetMapping("/v1/dog/found")
-	public List<FoundDog> getAllFoundDogs() {
-		APIs apis = new APIs();
+    public List<FoundDog> getAllFoundDogs() {
+        APIs apis = new APIs();
         GetDogsRequest request = new GetDogsRequest();
         GetDogsResponse<FoundDog> response = apis.getAllFoundDogs(request);
-		return response.getDogs();
-	}
+        return response.getDogs();
+    }
 
     @GetMapping("/v1/dog/found/{id}")
-	public FoundDog getFoundDogDetails(@PathVariable String id) {
-		APIs apis = new APIs();
+    public FoundDog getFoundDogDetails(@PathVariable String id) {
+        APIs apis = new APIs();
         return apis.getFoundDogDetails(id);
-	}
+    }
 
     @PutMapping("/v1/dog/found/{id}")
-	public void updateFound(@PathVariable String id, @RequestBody FoundDog.Builder foundDogBuilder) {
-		APIs apis = new APIs();
-	    apis.updateFoundDog(foundDogBuilder.build());
-	}
+    public void updateFound(@PathVariable String id, @RequestBody FoundDog.Builder foundDogBuilder) {
+        APIs apis = new APIs();
+        apis.updateFoundDog(foundDogBuilder.build());
+    }
 
     @DeleteMapping("/v1/dog/found/{id}")
-	public FoundDog deleteFound(@PathVariable String id) {
-		APIs apis = new APIs();
+    public FoundDog deleteFound(@PathVariable String id) {
+        APIs apis = new APIs();
         return apis.deleteFoundDog(id);
-	}
+    }
 }
