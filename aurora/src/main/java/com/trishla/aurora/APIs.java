@@ -5,7 +5,9 @@ import java.util.List;
 import com.trishla.aurora.dtos.FoundDog;
 import com.trishla.aurora.dtos.LostDog;
 import com.trishla.aurora.dtos.requests.GetDogsRequest;
+import com.trishla.aurora.dtos.requests.SearchDogsRequest;
 import com.trishla.aurora.dtos.responses.GetDogsResponse;
+import com.trishla.aurora.dtos.responses.SearchDogsResponse;
 import com.trishla.aurora.repository.FoundDogFileBasedRepository;
 import com.trishla.aurora.repository.FoundDogRepository;
 import com.trishla.aurora.repository.LostDogFileBasedRepository;
@@ -75,5 +77,9 @@ public class APIs {
 
     public FoundDog deleteFoundDog(String UID) {
         return foundDogRepository.delete(UID);
+    }
+
+    public SearchDogsResponse<LostDog> searchLostDogs(SearchDogsRequest request) {
+        return new SearchDogsResponse.Builder<LostDog>().dogs(null).total(0).build();
     }
 }
