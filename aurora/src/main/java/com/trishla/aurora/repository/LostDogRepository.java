@@ -3,6 +3,7 @@ package com.trishla.aurora.repository;
 import java.util.List;
 
 import com.trishla.aurora.dtos.LostDog;
+import com.trishla.aurora.dtos.requests.SearchDogsRequest;
 
 public interface LostDogRepository {
     void create(LostDog obj);
@@ -14,4 +15,6 @@ public interface LostDogRepository {
     void update(LostDog obj);
 
     LostDog delete(String id);
+
+    List<LostDog> search(SearchDogsRequest request);
 }
