@@ -80,6 +80,10 @@ public class APIs {
     }
 
     public SearchDogsResponse<LostDog> searchLostDogs(SearchDogsRequest request) {
-        return new SearchDogsResponse.Builder<LostDog>().dogs(null).total(0).build();
+        List<LostDog> lostDogsList = lostDogRepository.search(request);
+        return new SearchDogsResponse.Builder<LostDog>()
+                .total(lostDogsList.size())
+                .dogs(lostDogsList)
+                .build();
     }
 }
