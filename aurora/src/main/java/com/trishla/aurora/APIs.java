@@ -86,4 +86,12 @@ public class APIs {
                 .dogs(lostDogsList)
                 .build();
     }
+
+    public SearchDogsResponse<FoundDog> searchFoundDogs(SearchDogsRequest request) {
+        List<FoundDog> lostDogsList = foundDogRepository.search(request);
+        return new SearchDogsResponse.Builder<FoundDog>()
+                .total(lostDogsList.size())
+                .dogs(lostDogsList)
+                .build();
+    }
 }
