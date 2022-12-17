@@ -67,7 +67,7 @@ public class LostDogController {
             @RequestParam("limp") Boolean limping, @RequestParam("furry") Boolean furry) {
         APIs apis = new APIs();
         SearchDogsRequest searchDogsRequest = new SearchDogsRequest();
-        searchDogsRequest.create(name, sex, breed, city, latitude, longitude,
+        searchDogsRequest.createLostDogRequest(name, sex, breed, city, latitude, longitude,
                 maxDistance, status, message, colour, collar, coat, limping, furry);
         SearchDogsResponse<LostDog> searchDogsResponse = apis.searchLostDogs(searchDogsRequest);
         return searchDogsResponse.getList();

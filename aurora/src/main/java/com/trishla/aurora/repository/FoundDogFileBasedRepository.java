@@ -11,7 +11,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import com.trishla.aurora.dtos.FoundDog;
+import com.trishla.aurora.dtos.requests.SearchDogsRequest;
 
 public class FoundDogFileBasedRepository implements FoundDogRepository {
 
@@ -130,6 +132,12 @@ public class FoundDogFileBasedRepository implements FoundDogRepository {
             ex.printStackTrace();
         }
         return deletedObject;
+    }
+
+    // TODO(trishla): Implement search in file.
+    @Override
+    public List<FoundDog> search(SearchDogsRequest request) {
+        return ImmutableList.of();
     }
 
 }
