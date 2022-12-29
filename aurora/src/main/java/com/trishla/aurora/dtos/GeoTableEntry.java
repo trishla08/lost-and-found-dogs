@@ -9,7 +9,7 @@ import ch.hsr.geohash.GeoHash;
 import lombok.Getter;
 
 @Getter
-public class GeoTable {
+public class GeoTableEntry {
     String uid;
     Point point;
     Map<Integer, String> geoHashes;
