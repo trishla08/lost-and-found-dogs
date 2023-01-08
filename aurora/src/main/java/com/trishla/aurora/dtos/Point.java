@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class MapLocation {
+public class Point {
     private final double latitude;
     private final double longitude;
 }

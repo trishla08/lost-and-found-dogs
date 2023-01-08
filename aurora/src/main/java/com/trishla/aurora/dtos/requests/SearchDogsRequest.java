@@ -17,34 +17,39 @@ public class SearchDogsRequest {
     ImmutableMap<String, String> physicalAttributes;
     Status currentStatus;
 
-    public SearchDogsRequest() {}
+    public SearchDogsRequest() {
+    }
 
-    public void createLostDogRequest(String name, String sex, String breed, String city, Double latitude, Double longitude,
-            Double maxDistance, Status status, String message, String colour, Boolean collar, Boolean coat,
-            Boolean limping, Boolean furry) {
+    public void createLostDogRequest(String name, String sex, String breed, String city, Double latitude,
+            Double longitude, Double maxDistance, Status status, String message, String colour, Boolean collar,
+            Boolean coat, Boolean limping, Boolean furry) {
         this.name = name;
         this.sex = sex;
         this.breed = breed;
         this.city = city;
-        this.location = new MapLocation(latitude, longitude);
+        this.location = MapLocation.builder()
+                .longitude(longitude)
+                .latitude(latitude)
+                .build();
         this.message = message;
         this.physicalAttributes = ImmutableMap.of("colour", colour, "collar", collar.toString(), "coat",
-                coat.toString(),
-                "limping", limping.toString(), "furry", furry.toString());
+                coat.toString(), "limping", limping.toString(), "furry", furry.toString());
         this.currentStatus = status;
     }
 
-    public void createFoundDogRequest(String name, String sex, String breed, String city, Double latitude, Double longitude,
-            Double maxDistance, String message, String colour, Boolean collar, Boolean coat,
+    public void createFoundDogRequest(String name, String sex, String breed, String city, Double latitude,
+            Double longitude, Double maxDistance, String message, String colour, Boolean collar, Boolean coat,
             Boolean limping, Boolean furry) {
         this.name = name;
         this.sex = sex;
         this.breed = breed;
         this.city = city;
-        this.location = new MapLocation(latitude, longitude);
+        this.location = MapLocation.builder()
+                .longitude(longitude)
+                .latitude(latitude)
+                .build();
         this.message = message;
         this.physicalAttributes = ImmutableMap.of("colour", colour, "collar", collar.toString(), "coat",
-                coat.toString(),
-                "limping", limping.toString(), "furry", furry.toString());
+                coat.toString(), "limping", limping.toString(), "furry", furry.toString());
     }
 }
