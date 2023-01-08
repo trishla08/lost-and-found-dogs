@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.trishla.aurora.dtos.GeoTableEntry;
 
-public class GeoTableRealRepository implements GeoTableRepository{
+public class GeoTableRealRepository implements GeoTableRepository {
 
     @Override
     public void create(GeoTableEntry obj) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -33,7 +33,7 @@ public class GeoTableRealRepository implements GeoTableRepository{
     @Override
     public void update(GeoTableEntry obj) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -41,5 +41,4 @@ public class GeoTableRealRepository implements GeoTableRepository{
         // TODO Auto-generated method stub
         return null;
     }
-    
 }

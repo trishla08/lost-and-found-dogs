@@ -17,13 +17,13 @@ public class GeoTableEntry {
     private static final int minPrecision = 3;
     private static final int maxPrecision = 6;
 
-    public GeoTable(String uid, Point point) {
+    public GeoTableEntry(String uid, Point point) {
         this.uid = uid;
         this.point = point;
         this.geoHashes = getGeohashesForPoint(point);
     }
 
-    private static Map<Integer, String> getGeohashesForPoint(Point p) {
+    private Map<Integer, String> getGeohashesForPoint(Point p) {
         HashMap<Integer, String> map = new HashMap<Integer, String>(); 
         for (int precision = minPrecision; precision <= maxPrecision; precision++) {
             map.put(precision,
