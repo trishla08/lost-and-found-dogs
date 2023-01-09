@@ -1,14 +1,14 @@
 package com.trishla.aurora.contexts;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class FilterContext {
-    String columnName;
-    String value;
-
-    public FilterContext() {
-    }
-
-    public FilterContext(String columnName, String value) {
-        this.columnName = columnName;
-        this.value = value;
-    }
+    private final String columnName;
+    private final String value;
 }
