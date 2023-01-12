@@ -1,16 +1,16 @@
 package com.trishla.aurora.contexts;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class SortContext {
-    String columnName;
-    SortingOrder order;
-
-    public SortContext() {
-    }
-
-    public SortContext(String columnName, SortingOrder order) {
-        this.columnName = columnName;
-        this.order = order;
-    }
+    private final String columnName;
+    private final SortingOrder order;
 
     enum SortingOrder {
         ASCENDING,

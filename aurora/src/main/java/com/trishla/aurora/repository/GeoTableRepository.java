@@ -2,16 +2,18 @@ package com.trishla.aurora.repository;
 
 import java.util.List;
 
-import com.trishla.aurora.dtos.GeoTable;
+import com.trishla.aurora.dtos.Geohash;
 
 public interface GeoTableRepository {
-    void create(GeoTable obj);
+    void create(Geohash obj);
 
-    GeoTable read(String id);
+    Geohash read(String id);
 
-    List<GeoTable> readAll();
+    List<Geohash> readAll();
 
-    void update(GeoTable obj);
+    void update(Geohash obj);
 
-    GeoTable delete(GeoTable id);
+    Geohash delete(Geohash id);
+
+    List<Geohash> getNearestPoints(String geoHash, int precision);
 }

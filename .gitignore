@@ -3,3 +3,5 @@ target
 .mvn
 mvnw.cmd
 mvnw
+.vscode
+.apt_generated_tests

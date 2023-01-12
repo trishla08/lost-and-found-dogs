@@ -1,14 +1,14 @@
 package com.trishla.aurora.contexts;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class PaginationContext {
-    int numberOfRecords;
-    int numberOfPages;
-    
-    public PaginationContext() {
-    }
-    
-    public PaginationContext(int numberOfRecords, int numberOfPages) {
-        this.numberOfRecords = numberOfRecords;
-        this.numberOfPages = numberOfPages;
-    }
+    private final int numberOfRecords;
+    private final int numberOfPages;
 }

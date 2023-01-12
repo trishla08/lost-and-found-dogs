@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trishla.aurora.APIs;
 import com.trishla.aurora.dtos.FoundDog;
+import com.trishla.aurora.dtos.FoundDog.FoundDogBuilder;
 import com.trishla.aurora.dtos.requests.GetDogsRequest;
 import com.trishla.aurora.dtos.requests.SearchDogsRequest;
 import com.trishla.aurora.dtos.responses.GetDogsResponse;
@@ -22,7 +23,7 @@ import com.trishla.aurora.dtos.responses.SearchDogsResponse;
 public class FoundDogController {
 
     @PostMapping(value="/v1/dog/found")
-    public FoundDog addFoundDog(@RequestBody FoundDog.Builder foundDogBuilder) {
+    public FoundDog addFoundDog(@RequestBody FoundDogBuilder foundDogBuilder) {
         APIs apis = new APIs();
         return apis.reportFound(foundDogBuilder.build());
     }
@@ -30,7 +31,7 @@ public class FoundDogController {
     @GetMapping("/v1/dog/found")
     public List<FoundDog> getAllFoundDogs() {
         APIs apis = new APIs();
-        GetDogsRequest request = new GetDogsRequest();
+        GetDogsRequest request = GetDogsRequest.builder().build();
         GetDogsResponse<FoundDog> response = apis.getAllFoundDogs(request);
         return response.getDogs();
     }
@@ -42,7 +43,7 @@ public class FoundDogController {
     }
 
     @PutMapping("/v1/dog/found/{id}")
-    public void updateFound(@PathVariable String id, @RequestBody FoundDog.Builder foundDogBuilder) {
+    public void updateFound(@PathVariable String id, @RequestBody FoundDogBuilder foundDogBuilder) {
         APIs apis = new APIs();
         apis.updateFoundDog(foundDogBuilder.build());
     }

@@ -39,7 +39,7 @@ public class APIs {
         List<LostDog> lostDogs = lostDogRepository.readAll();
         List<LostDog> sortedLostDogs = SortDogsList.sortLostDogsList(lostDogs, req.getSort());
 
-        return new GetDogsResponse.Builder<LostDog>()
+        return GetDogsResponse.<LostDog>builder()
                 .total(lostDogs.size())
                 .dogs(sortedLostDogs)
                 .build();
@@ -49,7 +49,7 @@ public class APIs {
         List<FoundDog> foundDogs = foundDogRepository.readAll();
         List<FoundDog> sortedFoundDogs = SortDogsList.sortFoundDogsList(foundDogs, req.getSort());
 
-        return new GetDogsResponse.Builder<FoundDog>()
+        return GetDogsResponse.<FoundDog>builder()
                 .total(foundDogs.size())
                 .dogs(sortedFoundDogs)
                 .build();
