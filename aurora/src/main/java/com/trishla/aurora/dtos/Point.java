@@ -1,4 +1,4 @@
-package com.trishla.aurora.contexts;
+package com.trishla.aurora.dtos;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class FilterContext {
-    private final String columnName;
-    private final String value;
+public class Point {
+    private final double latitude;
+    private final double longitude;
 }
