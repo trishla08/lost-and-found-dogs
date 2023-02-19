@@ -4,29 +4,57 @@ import java.io.Serializable;
 
 import com.google.common.collect.ImmutableMap;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.stereotype.Repository;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.Singular;
+import lombok.Data;
 
 @Getter
+@Setter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
+@NoArgsConstructor
+@Builder(setterPrefix = "set")
+@Entity
+@Data
 public class LostDog implements Serializable {
-    private final String uid;
-    private final String name;
-    private final int age;
-    private final String sex;
-    private final String breed;
-    private final MapLocation location;
-    private final String city;
-    private final String photo;
-    private final String message;
-    private final String ownerName;
-    private final String ownerEmail;
-    private final String ownerNumber;
-    private final ImmutableMap<String, String> physicalAttributes;
-    private final Status currentStatus;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String uid;
+
+    private String name;
+    private int age;
+    private String sex;
+    private String breed;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "ID")
+    private MapLocation location;
+
+    private String city;
+    private String photo;
+    private String message;
+    private String ownerName;
+    private String ownerEmail;
+    private String ownerNumber;
+
+    @Singular private ImmutableMap<String, String> physicalAttributes;
+    
+    private Status currentStatus;
 
     public enum Status {
         Lost,

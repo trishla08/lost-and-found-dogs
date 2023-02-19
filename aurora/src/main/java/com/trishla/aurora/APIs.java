@@ -8,9 +8,7 @@ import com.trishla.aurora.dtos.requests.GetDogsRequest;
 import com.trishla.aurora.dtos.requests.SearchDogsRequest;
 import com.trishla.aurora.dtos.responses.GetDogsResponse;
 import com.trishla.aurora.dtos.responses.SearchDogsResponse;
-import com.trishla.aurora.repository.FoundDogFileBasedRepository;
 import com.trishla.aurora.repository.FoundDogRepository;
-import com.trishla.aurora.repository.LostDogFileBasedRepository;
 import com.trishla.aurora.repository.LostDogRepository;
 import com.trishla.aurora.utils.SortDogsList;
 
@@ -18,11 +16,15 @@ public class APIs {
 
     public Double lostIndex = (double) 0;
     public Double foundIndex = (double) 0;
-
-    LostDogRepository lostDogRepository = new LostDogFileBasedRepository();
-    FoundDogRepository foundDogRepository = new FoundDogFileBasedRepository();
+    
+    private LostDogRepository lostDogRepository;
+    private FoundDogRepository foundDogRepository;
 
     public APIs() {
+    }
+    public APIs(LostDogRepository lostDogRepository, FoundDogRepository foundDogRepository) {
+        this.lostDogRepository = lostDogRepository;
+        this.foundDogRepository = foundDogRepository;
     }
 
     public LostDog reportMissing(LostDog lostDog) {
