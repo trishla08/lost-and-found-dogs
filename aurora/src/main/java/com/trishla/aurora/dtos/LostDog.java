@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.stereotype.Repository;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -53,7 +52,7 @@ public class LostDog implements Serializable {
     private String ownerNumber;
 
     @Singular private ImmutableMap<String, String> physicalAttributes;
-    
+
     private Status currentStatus;
 
     public enum Status {

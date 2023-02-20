@@ -21,7 +21,9 @@ import lombok.Getter;
 import lombok.Singular;
 
 @Getter
-@Builder
+@Setter
+@NoArgsConstructor
+@Builder(setterPrefix = "set")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Data
@@ -29,21 +31,21 @@ public class FoundDog implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private final String uid;
-    
-    private final String sex;
-    private final String breed;
+    private String uid;
+
+    private String sex;
+    private String breed;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "ID")
-    private final MapLocation location;
+    private MapLocation location;
 
-    private final String city;
-    private final String photo;
-    private final String message;
-    private final String finderName;
-    private final String finderEmail;
-    private final String finderNumber;
+    private String city;
+    private String photo;
+    private String message;
+    private String finderName;
+    private String finderEmail;
+    private String finderNumber;
 
-    @Singular private final ImmutableMap<String, String> physicalAttributes;
+    @Singular private ImmutableMap<String, String> physicalAttributes;
 }
