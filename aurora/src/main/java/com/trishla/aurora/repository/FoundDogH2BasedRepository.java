@@ -3,10 +3,12 @@ package com.trishla.aurora.repository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.trishla.aurora.dtos.FoundDog;
 import com.trishla.aurora.dtos.requests.SearchDogsRequest;
 
+@Component
 public class FoundDogH2BasedRepository implements FoundDogRepository {
 
     @Autowired
