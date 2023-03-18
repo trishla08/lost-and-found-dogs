@@ -1,4 +1,0 @@
-class CRUD {
-
-    create ()
-}
