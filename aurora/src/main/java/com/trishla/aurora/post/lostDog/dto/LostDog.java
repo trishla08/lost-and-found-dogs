@@ -20,7 +20,6 @@ public class LostDog {
     private String breed;
     private int age;
     private Gender gender;
-    private String colour;
     private DogPhysicalAttributes distinctiveFeatures;
     private Location lastKnownLocation;
     private Instant dateLost;

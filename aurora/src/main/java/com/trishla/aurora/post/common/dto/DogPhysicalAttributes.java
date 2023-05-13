@@ -3,7 +3,7 @@ package com.trishla.aurora.post.common.dto;
 import java.util.List;
 
 public class DogPhysicalAttributes {
-    private List<String> colours;
+    private List<Colour> colours;
     private Size size;
     private boolean collar;
     private boolean coat;
