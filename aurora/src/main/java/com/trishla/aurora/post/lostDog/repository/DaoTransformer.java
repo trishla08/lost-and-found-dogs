@@ -32,10 +32,32 @@ public class DaoTransformer {
     }
 
     public LostDogPost convertToDtoOptional(Optional<LostDogPostDao> lostDogPost) {
-        return null;
+        if (lostDogPost.isPresent()) {
+            return convertToDto(lostDogPost.get());
+        } else
+            return null;
     }
 
     public LostDogPost convertToDto(LostDogPostDao lostDogPost) {
-        return null;
+        LostDogPost.LostDogPostBuilder lostDogPostDaoBuilder = LostDogPost.builder();
+        return lostDogPostDaoBuilder.lostDog(convertLostDogToDto(lostDogPost.getLostDog()))
+                .postCreationTimestamp(lostDogPost.getPostCreationTimestamp())
+                .postStatus(lostDogPost.getPostStatus())
+                .title(lostDogPost.getTitle())
+                .userID(lostDogPost.getUserID()).build();
+    }
+
+    private LostDog convertLostDogToDto(LostDogDao lostDog) {
+        LostDog.LostDogBuilder lostDogBuilder = LostDog.builder();
+        return lostDogBuilder.age(lostDog.getAge()).breed(lostDog.getBreed()).dateLost(lostDog.getDateLost())
+                .distinctiveFeatures(lostDog.getDistinctiveFeatures())
+                .gender(lostDog.getGender())
+                .lastKnownLocation(lostDog.getLastKnownLocation())
+                .message(lostDog.getMessage())
+                .ownerEmail(lostDog.getOwnerEmail())
+                .ownerName(lostDog.getOwnerName())
+                .ownerPhone(lostDog.getOwnerPhone())
+                .photo(lostDog.getPhoto())
+                .build();
     }
 }
