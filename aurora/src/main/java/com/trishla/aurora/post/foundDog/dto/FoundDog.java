@@ -1,7 +1,6 @@
 package com.trishla.aurora.post.foundDog.dto;
 
 import java.time.Instant;
-import java.util.List;
 
 import com.trishla.aurora.post.common.dto.DogPhysicalAttributes;
 import com.trishla.aurora.post.common.dto.Gender;
@@ -25,5 +24,5 @@ public class FoundDog {
     private String finderEmail;
     private String finderPhone;
     private String message;
-    private List<byte[]> photo;
+    private byte[] photo;
 }
