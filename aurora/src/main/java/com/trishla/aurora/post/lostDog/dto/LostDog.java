@@ -1,20 +1,23 @@
 package com.trishla.aurora.post.lostDog.dto;
 
 import java.time.Instant;
-import java.util.List;
-
 import com.trishla.aurora.post.common.dto.DogPhysicalAttributes;
 import com.trishla.aurora.post.common.dto.Gender;
 import com.trishla.aurora.post.common.dto.Location;
-import com.trishla.aurora.post.common.dto.Size;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Builder
+@Getter
+@Setter
 public class LostDog {
     private int UID;
     private String name;
     private String breed;
     private int age;
     private Gender gender;
-    private String colour;
     private DogPhysicalAttributes distinctiveFeatures;
     private Location lastKnownLocation;
     private Instant dateLost;
@@ -22,5 +25,5 @@ public class LostDog {
     private String ownerEmail;
     private String ownerPhone;
     private String message;
-    private List<byte[]> photo;
+    private byte[] photo;
 }
