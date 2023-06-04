@@ -1,57 +1,52 @@
 package com.trishla.aurora.post.lostDog.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.trishla.aurora.post.lostDog.dao.LostDogPostDao;
 import com.trishla.aurora.post.lostDog.dto.LostDogPost;
-import com.trishla.aurora.post.lostDog.repository.DaoTransformer;
+import com.trishla.aurora.post.lostDog.repository.LostDogDaoTransformer;
 import com.trishla.aurora.post.lostDog.repository.LostDogPostJpaRepository;
+import com.trishla.aurora.user.dao.UserDao;
+import com.trishla.aurora.user.repository.UserJpaRepository;
 
 @Service
 public class LostDogPostOperations {
     private LostDogPostJpaRepository repo;
-    private DaoTransformer transformer;
+    private LostDogDaoTransformer transformer;
+    private UserJpaRepository userRepo;
 
-    public LostDogPostOperations(LostDogPostJpaRepository repo, DaoTransformer transformer) {
+    public LostDogPostOperations(LostDogPostJpaRepository repo, LostDogDaoTransformer transformer, UserJpaRepository userRepo) {
         this.repo = repo;
         this.transformer = transformer;
+        this.userRepo = userRepo;
     }
 
     public LostDogPost createPost(LostDogPost post) {
-        return transformer.convertToDto(repo.save(transformer.convertToDao(post)));
+        UserDao userDao = userRepo.getReferenceById(post.getUser().getUID());
+        LostDogPostDao lostDogPostDao = transformer.convertToDao(post);
+        lostDogPostDao.setUser(userDao);
+        return transformer.convertToDto(repo.save(lostDogPostDao));
     };
 
     public Optional<LostDogPost> getPost(Long UID) {
         return repo.findById(UID)
-        .map(transformer::convertToDto);
+                .map(transformer::convertToDto);
     };
 
-    public List<LostDogPost> getPostsForUser(Long UID) {
-        // TODO: implement
-        return new ArrayList<>();
-    };
-
-    public LostDogPost updatePost(LostDogPost user) {
-        Optional<LostDogPostDao> optionalPostDao = repo.findById(user.getUID());
+    public LostDogPost updatePost(LostDogPost lostDogPost) {
+        Optional<LostDogPostDao> optionalPostDao = repo.findById(lostDogPost.getUID());
         if (optionalPostDao.isEmpty()) {
             return null;
         }
-        LostDogPostDao updatedDao = mergeInFields(optionalPostDao.get(), user);
-
-        return transformer.convertToDto(repo.save(updatedDao));
+        UserDao userDao = userRepo.getReferenceById(lostDogPost.getUser().getUID());
+        LostDogPostDao lostDogPostDao = transformer.convertToDao(lostDogPost);
+        lostDogPostDao.setUser(userDao);
+        return transformer.convertToDto(repo.save(lostDogPostDao));
     };
 
     public void deletePost(Long UID) {
         repo.deleteById(UID);
     };
-
-
-    private LostDogPostDao mergeInFields(LostDogPostDao oldDao, LostDogPost fieldsToUpdate) {
-        // TODO: implement
-        return null;
-    }
 }

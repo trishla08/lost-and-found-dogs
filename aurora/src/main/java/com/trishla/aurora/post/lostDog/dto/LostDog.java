@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LostDog {
-    private int UID;
+    private long UID;
     private String name;
     private String breed;
     private int age;

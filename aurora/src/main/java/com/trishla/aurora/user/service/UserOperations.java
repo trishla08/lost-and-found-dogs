@@ -1,24 +1,44 @@
 package com.trishla.aurora.user.service;
 
-import com.trishla.aurora.user.dto.User;
+import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
+import com.trishla.aurora.user.dao.UserDao;
+import com.trishla.aurora.user.dto.User;
+import com.trishla.aurora.user.repository.UserDaoTransformer;
+import com.trishla.aurora.user.repository.UserJpaRepository;
+
+@Service
 public class UserOperations {
-    User createUser(User user) {
-        // save query
-        return user;
+
+    private UserJpaRepository repo;
+    private UserDaoTransformer transformer;
+
+    public UserOperations(UserJpaRepository repo, UserDaoTransformer transformer) {
+        this.repo = repo;
+        this.transformer = transformer;
     }
 
-    User getUser(Long UID) {
-      //  return FoundDogJpaRepository.findById(id).get();
-      return User.builder().build();
+    public User createUser(User user) {
+        return transformer.convertToDto(repo.save(transformer.convertToDao(user)));
+    }
+
+    public Optional<User> getUser(Long UID) {
+        return repo.findById(UID)
+        .map(transformer::convertToDto);
     };
 
-    User updateUser(User user) {
-        return User.builder().build();
-    }
+    public User updateUser(User user) {
+        Optional<UserDao> optionalUser = repo.findById(user.getUID());
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+        return transformer.convertToDto(repo.save(transformer.convertToDao(user)));
+    };
 
-    void deleteUser(Long UID) {
-        
-    }
+    public void deleteUser(Long UID) {
+        repo.deleteById(UID);
+    };
     
 }

@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.trishla.aurora.post.common.dto.PostStatus;
+import com.trishla.aurora.user.dao.UserDao;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +29,7 @@ import lombok.Setter;
 public class FoundDogPostDao {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int UID;
+    private long UID;
     
     private String title;
 
@@ -37,5 +39,8 @@ public class FoundDogPostDao {
 
     private PostStatus postStatus;
     private Instant postCreationTimestamp;
-    private int userID;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "UID")
+    private UserDao user;
 }

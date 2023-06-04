@@ -12,11 +12,11 @@ import lombok.Setter;
 public class DogPhysicalAttributes {
     private List<Colour> colours;
     private Size size;
-    private boolean collar;
-    private boolean coat;
-    private boolean wounded;
-    private boolean furry;
-    private boolean limping;
+    private Collar collar;
+    private Coat coat;
+    private Wounded wounded;
+    private Furry furry;
+    private Limping limping;
     private Weight weight;
-    private boolean sterilised;
+    private Sterilised sterilised;
 }

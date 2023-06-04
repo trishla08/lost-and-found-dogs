@@ -29,7 +29,7 @@ import lombok.Setter;
 public class LostDogDao {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int UID;
+    private long UID;
     private String name;
     private String breed;
     private int age;
