@@ -3,6 +3,7 @@ package com.trishla.aurora.post.lostDog.dto;
 import java.time.Instant;
 
 import com.trishla.aurora.post.common.dto.PostStatus;
+import com.trishla.aurora.user.dto.User;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -17,5 +18,5 @@ public class LostDogPost {
     private LostDog lostDog;
     private PostStatus postStatus;
     private Instant postCreationTimestamp;
-    private int userID;
+    private User user;
 }

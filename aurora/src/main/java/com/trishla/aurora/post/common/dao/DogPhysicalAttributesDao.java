@@ -11,9 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.trishla.aurora.post.common.dto.Coat;
+import com.trishla.aurora.post.common.dto.Collar;
 import com.trishla.aurora.post.common.dto.Colour;
+import com.trishla.aurora.post.common.dto.Furry;
+import com.trishla.aurora.post.common.dto.Limping;
 import com.trishla.aurora.post.common.dto.Size;
+import com.trishla.aurora.post.common.dto.Sterilised;
 import com.trishla.aurora.post.common.dto.Weight;
+import com.trishla.aurora.post.common.dto.Wounded;
 import com.trishla.aurora.post.foundDog.dao.FoundDogDao;
 import com.trishla.aurora.post.lostDog.dao.LostDogDao;
 
@@ -41,16 +47,26 @@ public class DogPhysicalAttributesDao {
     @Enumerated(EnumType.ORDINAL)
     private Size size;
 
-    private boolean collar;
-    private boolean coat;
-    private boolean wounded;
-    private boolean furry;
-    private boolean limping;
+    @Enumerated(EnumType.ORDINAL)
+    private Collar collar;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Coat coat;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Wounded wounded;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Furry furry;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Limping limping;
 
     @Enumerated(EnumType.ORDINAL)
     private Weight weight;
     
-    private boolean sterilised;
+    @Enumerated(EnumType.ORDINAL)
+    private Sterilised sterilised;
 
     @OneToOne(mappedBy = "distinctiveFeatures")
     private LostDogDao lostDog;

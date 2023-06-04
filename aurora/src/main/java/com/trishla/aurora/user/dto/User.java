@@ -2,6 +2,9 @@ package com.trishla.aurora.user.dto;
 
 import java.util.List;
 
+import com.trishla.aurora.post.foundDog.dto.FoundDogPost;
+import com.trishla.aurora.post.lostDog.dto.LostDogPost;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +13,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    private int UID;
+    private long UID;
     private String name;
     private String emailAddress;
     private String contactNumber;
-    private List<String> lostDogPosts;
-    private List<String> foundDogPosts;
+    private List<LostDogPost> lostDogPosts;
+    private List<FoundDogPost> foundDogPosts;
 }

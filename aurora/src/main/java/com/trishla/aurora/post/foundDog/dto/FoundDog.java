@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FoundDog {
-    private int UID;
+    private long UID;
     private String breed;
     private Gender gender;
     private DogPhysicalAttributes distinctiveFeatures;

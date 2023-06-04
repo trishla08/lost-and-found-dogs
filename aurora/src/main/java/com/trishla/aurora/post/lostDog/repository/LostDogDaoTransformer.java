@@ -14,15 +14,15 @@ import com.trishla.aurora.post.lostDog.dto.LostDog;
 import com.trishla.aurora.post.lostDog.dto.LostDogPost;
 
 @Service
-public class DaoTransformer {
+public class LostDogDaoTransformer {
+
     public LostDogPostDao convertToDao(LostDogPost lostDogPost) {
         LostDogPostDao.LostDogPostDaoBuilder lostDogPostDao = LostDogPostDao.builder();
         return lostDogPostDao.UID(lostDogPost.getUID())
                 .lostDog(convertLostDogToDao(lostDogPost.getLostDog()))
                 .postCreationTimestamp(lostDogPost.getPostCreationTimestamp())
                 .postStatus(lostDogPost.getPostStatus())
-                .title(lostDogPost.getTitle())
-                .userID(lostDogPost.getUserID()).build();
+                .title(lostDogPost.getTitle()).build();
     }
 
     private LostDogDao convertLostDogToDao(LostDog lostDog) {
@@ -57,8 +57,8 @@ public class DaoTransformer {
                 .postCreationTimestamp(lostDogPost.getPostCreationTimestamp())
                 .postStatus(lostDogPost.getPostStatus())
                 .title(lostDogPost.getTitle())
-                .userID(lostDogPost.getUserID()).build();
-    }
+                .build();
+    } 
 
     private LostDog convertLostDogToDto(LostDogDao lostDog) {
         if (lostDog == null)
@@ -85,13 +85,13 @@ public class DaoTransformer {
         DogPhysicalAttributesDao.DogPhysicalAttributesDaoBuilder builder = DogPhysicalAttributesDao.builder();
         return builder.colours(attributesDto.getColours())
                 .size(attributesDto.getSize())
-                .collar(attributesDto.isCollar())
-                .coat(attributesDto.isCoat())
-                .wounded(attributesDto.isWounded())
-                .furry(attributesDto.isFurry())
-                .limping(attributesDto.isLimping())
+                .collar(attributesDto.getCollar())
+                .coat(attributesDto.getCoat())
+                .wounded(attributesDto.getWounded())
+                .furry(attributesDto.getFurry())
+                .limping(attributesDto.getLimping())
                 .weight(attributesDto.getWeight())
-                .sterilised(attributesDto.isSterilised()).build();
+                .sterilised(attributesDto.getSterilised()).build();
     }
 
     private DogPhysicalAttributes convertDogPhysicalAttributesToDTO(DogPhysicalAttributesDao attributesDao) {
@@ -101,13 +101,13 @@ public class DaoTransformer {
         DogPhysicalAttributes.DogPhysicalAttributesBuilder builder = DogPhysicalAttributes.builder();
         return builder.colours(attributesDao.getColours())
                 .size(attributesDao.getSize())
-                .collar(attributesDao.isCollar())
-                .coat(attributesDao.isCoat())
-                .wounded(attributesDao.isWounded())
-                .furry(attributesDao.isFurry())
-                .limping(attributesDao.isLimping())
+                .collar(attributesDao.getCollar())
+                .coat(attributesDao.getCoat())
+                .wounded(attributesDao.getWounded())
+                .furry(attributesDao.getFurry())
+                .limping(attributesDao.getLimping())
                 .weight(attributesDao.getWeight())
-                .sterilised(attributesDao.isSterilised()).build();
+                .sterilised(attributesDao.getSterilised()).build();
     }
 
     private LocationDao convertLocationToDao(Location location) {
