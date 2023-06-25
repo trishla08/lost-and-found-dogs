@@ -1,5 +1,7 @@
 package com.trishla.aurora.post.foundDog.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -49,4 +51,13 @@ public class FoundDogPostOperations {
     public void deletePost(Long UID) {
         repo.deleteById(UID);
     };
+
+    public List<FoundDogPost> getAllFoundDogPosts() {
+        List<FoundDogPostDao> foundDogPostDaoList = repo.findAll();
+        List<FoundDogPost> foundDogPostList = new ArrayList<>();
+        for (FoundDogPostDao postDao: foundDogPostDaoList) {
+            foundDogPostList.add(transformer.convertToDto(postDao));
+        }
+        return foundDogPostList;
+    }
 }

@@ -12,7 +12,6 @@ import com.trishla.aurora.post.foundDog.dao.FoundDogDao;
 import com.trishla.aurora.post.foundDog.dao.FoundDogPostDao;
 import com.trishla.aurora.post.foundDog.dto.FoundDog;
 import com.trishla.aurora.post.foundDog.dto.FoundDogPost;
-import com.trishla.aurora.user.repository.UserDaoTransformer;
 
 @Service
 public class FoundDogDaoTransformer {

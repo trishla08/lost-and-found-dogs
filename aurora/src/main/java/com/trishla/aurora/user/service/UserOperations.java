@@ -1,5 +1,7 @@
 package com.trishla.aurora.user.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -40,5 +42,12 @@ public class UserOperations {
     public void deleteUser(Long UID) {
         repo.deleteById(UID);
     };
-    
+
+    public List<User> getAllUsers() {
+        List<User> usersList = new ArrayList<>();
+        for (UserDao userDao: repo.findAll()) {
+            usersList.add(transformer.convertToDto(userDao));
+        }
+        return usersList;
+    }
 }

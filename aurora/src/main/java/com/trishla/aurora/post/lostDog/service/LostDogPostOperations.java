@@ -1,5 +1,7 @@
 package com.trishla.aurora.post.lostDog.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -17,7 +19,8 @@ public class LostDogPostOperations {
     private LostDogDaoTransformer transformer;
     private UserJpaRepository userRepo;
 
-    public LostDogPostOperations(LostDogPostJpaRepository repo, LostDogDaoTransformer transformer, UserJpaRepository userRepo) {
+    public LostDogPostOperations(LostDogPostJpaRepository repo, LostDogDaoTransformer transformer,
+            UserJpaRepository userRepo) {
         this.repo = repo;
         this.transformer = transformer;
         this.userRepo = userRepo;
@@ -49,4 +52,13 @@ public class LostDogPostOperations {
     public void deletePost(Long UID) {
         repo.deleteById(UID);
     };
+
+    public List<LostDogPost> getAllLostDogPosts() {
+        List<LostDogPostDao> lostDogPostDaoList = repo.findAll();
+        List<LostDogPost> lostDogPostList = new ArrayList<>();
+        for (LostDogPostDao postDao : lostDogPostDaoList) {
+            lostDogPostList.add(transformer.convertToDto(postDao));
+        }
+        return lostDogPostList;
+    }
 }

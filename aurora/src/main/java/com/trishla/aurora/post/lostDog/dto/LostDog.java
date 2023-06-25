@@ -5,13 +5,17 @@ import com.trishla.aurora.post.common.dto.DogPhysicalAttributes;
 import com.trishla.aurora.post.common.dto.Gender;
 import com.trishla.aurora.post.common.dto.Location;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LostDog {
     private long UID;
     private String name;
