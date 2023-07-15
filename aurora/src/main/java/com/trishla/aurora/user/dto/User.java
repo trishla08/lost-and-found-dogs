@@ -20,6 +20,9 @@ public class User {
     private long UID;
     private String name;
     private String emailAddress;
+    private String password;
+    private String passwordHash;
+    private String passwordSalt;
     private String contactNumber;
     private List<LostDogPost> lostDogPosts;
     private List<FoundDogPost> foundDogPosts;

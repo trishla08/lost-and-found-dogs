@@ -25,12 +25,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDao {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long UID;
 
     private String name;
     private String emailAddress;
     private String contactNumber;
+    private String passwordHash;
+    private String passwordSalt;
 
     @OneToMany(mappedBy = "user")
     private List<FoundDogPostDao> foundDogPosts;

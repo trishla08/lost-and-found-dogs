@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.trishla.aurora.user.dao.UserDao;
+import com.trishla.aurora.user.dto.LoginRequest;
 import com.trishla.aurora.user.dto.User;
 import com.trishla.aurora.user.repository.UserDaoTransformer;
 import com.trishla.aurora.user.repository.UserJpaRepository;
@@ -28,7 +29,7 @@ public class UserOperations {
 
     public Optional<User> getUser(Long UID) {
         return repo.findById(UID)
-        .map(transformer::convertToDto);
+                .map(transformer::convertToDto);
     };
 
     public User updateUser(User user) {
@@ -45,9 +46,22 @@ public class UserOperations {
 
     public List<User> getAllUsers() {
         List<User> usersList = new ArrayList<>();
-        for (UserDao userDao: repo.findAll()) {
+        for (UserDao userDao : repo.findAll()) {
             usersList.add(transformer.convertToDto(userDao));
         }
         return usersList;
+    }
+
+    public User fetchUserByEmailAddress(String emailAddress) {
+        return transformer.convertToDto(repo.findByEmailAddress(emailAddress));
+    }
+
+    public Boolean validateCredentials(LoginRequest loginRequest, User user) {
+        String userSalt = user.getPasswordSalt();
+        String userHash = user.getPasswordHash();
+
+        String enteredPasswordHash = UserPasswordGenerator.hashPassword(loginRequest.getPassword(), userSalt);
+
+        return enteredPasswordHash.equals(userHash);
     }
 }
