@@ -1,10 +1,13 @@
 package com.trishla.aurora.user.repository;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import org.mindrot.jbcrypt.BCrypt;
 import com.trishla.aurora.post.foundDog.dao.FoundDogPostDao;
 import com.trishla.aurora.post.foundDog.dto.FoundDogPost;
 import com.trishla.aurora.post.foundDog.repository.FoundDogDaoTransformer;
@@ -13,12 +16,14 @@ import com.trishla.aurora.post.lostDog.dto.LostDogPost;
 import com.trishla.aurora.post.lostDog.repository.LostDogDaoTransformer;
 import com.trishla.aurora.user.dao.UserDao;
 import com.trishla.aurora.user.dto.User;
+import com.trishla.aurora.user.service.UserPasswordGenerator;
 
 @Service
 public class UserDaoTransformer {
 
     LostDogDaoTransformer lostDogDaoTransformer = new LostDogDaoTransformer();
     FoundDogDaoTransformer foundDogDaoTransformer = new FoundDogDaoTransformer();
+    int length = 16;
 
     public UserDao convertToDao(User user) {
         UserDao.UserDaoBuilder userDao = UserDao.builder();
@@ -26,6 +31,11 @@ public class UserDaoTransformer {
                 .name(user.getName())
                 .emailAddress(user.getEmailAddress())
                 .contactNumber(user.getContactNumber());
+
+        String salt = UserPasswordGenerator.generateSalt(length);
+        String hashedPassword = UserPasswordGenerator.hashPassword(user.getPassword(), salt);
+
+        userDao.passwordHash(hashedPassword).passwordSalt(salt);
 
         List<LostDogPostDao> convertedLostDogPosts = new ArrayList<>();
         if (user.getLostDogPosts() != null) {
@@ -50,7 +60,9 @@ public class UserDaoTransformer {
         user.UID(userDao.getUID())
                 .name(userDao.getName())
                 .emailAddress(userDao.getEmailAddress())
-                .contactNumber(userDao.getContactNumber()).build();
+                .contactNumber(userDao.getContactNumber())
+                .passwordHash(userDao.getPasswordHash())
+                .passwordSalt(userDao.getPasswordSalt()).build();
 
         List<LostDogPost> convertedLostDogPosts = new ArrayList<>();
         if (userDao.getLostDogPosts() != null) {
