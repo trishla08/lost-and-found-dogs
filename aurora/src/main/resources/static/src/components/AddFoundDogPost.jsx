@@ -1,15 +1,13 @@
 import React, { useReducer, useState } from "react";
 import axios from "axios";
 
-const AddLostDogPostForm = () => {
+const AddFoundDogPostForm = () => {
   const [title, setTitle] = useState("");
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
   const [sex, setSex] = useState("");
   const [breed, setBreed] = useState("");
-  const [ownerName, setOwnerName] = useState("");
-  const [ownerEmail, setOwnerEmail] = useState("");
-  const [ownerPhone, setOwnerPhone] = useState("");
+  const [finderName, setFinderName] = useState("");
+  const [finderEmail, setFinderEmail] = useState("");
+  const [finderPhone, setFinderPhone] = useState("");
   const [message, setMessage] = useState("");
   const [showMoreDetails, setShowMoreDetails] = useState(false); // State to toggle extra fields
   const [colours, setSelectedColors] = useState([]); // State to store selected colors
@@ -43,16 +41,14 @@ const AddLostDogPostForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newLostDogPost = {
+    const newFoundDogPost = {
       title,
-      lostDog: {
-        name,
-        age,
+      foundDog: {
         sex,
         breed,
-        ownerName,
-        ownerEmail,
-        ownerPhone,
+        finderName,
+        finderEmail,
+        finderPhone,
         message,
         distinctiveFeatures: {
           colours,
@@ -72,19 +68,17 @@ const AddLostDogPostForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/v1/dog/lost",
-        newLostDogPost
+        "http://localhost:8080/v1/dog/found",
+        newFoundDogPost
       );
       console.log(response.data); // Handle the response as needed
       // Reset form fields
       setTitle("");
-      setName("");
-      setAge(0);
       setSex("");
       setBreed("");
-      setOwnerName("");
-      setOwnerEmail("");
-      setOwnerPhone("");
+      setFinderName("");
+      setFinderEmail("");
+      setFinderPhone("");
       setMessage("");
       setShowMoreDetails(false); // Reset the state for showing extra fields
     } catch (error) {
@@ -95,7 +89,7 @@ const AddLostDogPostForm = () => {
 
   return (
     <div className="container">
-      <h2 className="headerStyle">🐶 Add Lost Dog Post 🐾</h2>
+      <h2 className="headerStyle">🐶 Add Found Dog Post 🐾</h2>
       <form onSubmit={handleSubmit} className="formStyle">
         <div className="inputContainerStyle">
           <label htmlFor="title" className="labelStyle">
@@ -109,32 +103,6 @@ const AddLostDogPostForm = () => {
             required
             className="inputStyle"
             style={{ width: "100%", marginBottom: "15px" }}
-          />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="name" className="labelStyle">
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="inputStyle"
-          />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="age" className="labelStyle">
-            Age:
-          </label>
-          <input
-            type="number"
-            id="age"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            required
-            className="inputStyle"
           />
         </div>
         <div className="inputContainerStyle">
@@ -167,40 +135,40 @@ const AddLostDogPostForm = () => {
           />
         </div>
         <div className="inputContainerStyle">
-          <label htmlFor="ownerName" className="labelStyle">
-            Owner Name:
+          <label htmlFor="finderName" className="labelStyle">
+            finder Name:
           </label>
           <input
             type="text"
-            id="ownerName"
-            value={ownerName}
-            onChange={(e) => setOwnerName(e.target.value)}
+            id="finderName"
+            value={finderName}
+            onChange={(e) => setFinderName(e.target.value)}
             required
             className="inputStyle"
           />
         </div>
         <div className="inputContainerStyle">
-          <label htmlFor="ownerEmail" className="labelStyle">
-            Owner Email:
+          <label htmlFor="finderEmail" className="labelStyle">
+            finder Email:
           </label>
           <input
             type="text"
-            id="ownerEmail"
-            value={ownerEmail}
-            onChange={(e) => setOwnerEmail(e.target.value)}
+            id="finderEmail"
+            value={finderEmail}
+            onChange={(e) => setFinderEmail(e.target.value)}
             required
             className="inputStyle"
           />
         </div>
         <div className="inputContainerStyle">
-          <label htmlFor="ownerPhone" className="labelStyle">
-            Owner Phone:
+          <label htmlFor="finderPhone" className="labelStyle">
+            finder Phone:
           </label>
           <input
             type="text"
-            id="ownerPhone"
-            value={ownerPhone}
-            onChange={(e) => setOwnerPhone(e.target.value)}
+            id="finderPhone"
+            value={finderPhone}
+            onChange={(e) => setFinderPhone(e.target.value)}
             required
             className="inputStyle"
           />
@@ -294,4 +262,4 @@ const AddLostDogPostForm = () => {
   );
 };
 
-export default AddLostDogPostForm;
+export default AddFoundDogPostForm;

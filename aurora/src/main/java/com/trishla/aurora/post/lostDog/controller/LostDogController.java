@@ -1,6 +1,7 @@
 package com.trishla.aurora.post.lostDog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.trishla.aurora.post.lostDog.service.LostDogPostMatcher;
 import com.trishla.aurora.post.lostDog.service.LostDogPostOperations;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class LostDogController {
 
     @Autowired
