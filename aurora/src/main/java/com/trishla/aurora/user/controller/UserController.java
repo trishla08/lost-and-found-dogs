@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     UserOperations userOperations;
 
-    @PostMapping(value = "/v1/user")
+    @PostMapping(value = "/v1/login")
     public Boolean login(@RequestBody LoginRequest loginRequest) {
         User user = userOperations.fetchUserByEmailAddress(loginRequest.getEmailAddress());
         Boolean validated = userOperations.validateCredentials(loginRequest, user);
@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @DeleteMapping("/v1/user/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable int id) {
         userOperations.deleteUser(id);
     }
 

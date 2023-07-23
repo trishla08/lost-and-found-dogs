@@ -14,7 +14,7 @@ public class UserPasswordGenerator {
     }
 
     public static String hashPassword(String password, String salt) {
-        String hashedPassword = BCrypt.hashpw(password, salt);
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         return hashedPassword;
     }
 }

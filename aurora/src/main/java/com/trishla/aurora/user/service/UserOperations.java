@@ -27,7 +27,7 @@ public class UserOperations {
         return transformer.convertToDto(repo.save(transformer.convertToDao(user)));
     }
 
-    public Optional<User> getUser(Long UID) {
+    public Optional<User> getUser(long UID) {
         return repo.findById(UID)
                 .map(transformer::convertToDto);
     };
@@ -40,7 +40,7 @@ public class UserOperations {
         return transformer.convertToDto(repo.save(transformer.convertToDao(user)));
     };
 
-    public void deleteUser(Long UID) {
+    public void deleteUser(long UID) {
         repo.deleteById(UID);
     };
 
