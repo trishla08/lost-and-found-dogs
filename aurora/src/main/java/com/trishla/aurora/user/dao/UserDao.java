@@ -25,8 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDao {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long UID;
+    private String UID;
 
     private String name;
     private String emailAddress;

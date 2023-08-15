@@ -5,7 +5,6 @@ import Login from "./Login";
 const HomePage = () => {
   return (
     <div>
-      <h1>Welcome to the Lost and Found for Dogs Website</h1>
       <Login />
     </div>
   );

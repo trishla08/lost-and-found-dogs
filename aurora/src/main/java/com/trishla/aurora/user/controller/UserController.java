@@ -20,7 +20,7 @@ import com.trishla.aurora.user.dto.User;
 import com.trishla.aurora.user.service.UserOperations;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 public class UserController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping("/v1/user/{id}")
-    public User getUserDetails(@PathVariable Long id) {
+    public User getUserDetails(@PathVariable String id) {
         Optional<User> optUser = userOperations.getUser(id);
         if (optUser.isPresent()) {
             return optUser.get();
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/v1/user/{id}/posts/lost")
-    public List<LostDogPost> getAllLostDogPostsForUser(@PathVariable Long id) {
+    public List<LostDogPost> getAllLostDogPostsForUser(@PathVariable String id) {
         Optional<User> optUser = userOperations.getUser(id);
         if (optUser.isPresent()) {
             return optUser.get().getLostDogPosts();
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @GetMapping("/v1/user/{id}/posts/found")
-    public List<FoundDogPost> getAllFoundDogPostsForUser(@PathVariable Long id) {
+    public List<FoundDogPost> getAllFoundDogPostsForUser(@PathVariable String id) {
         Optional<User> optUser = userOperations.getUser(id);
         if (optUser.isPresent()) {
             return optUser.get().getFoundDogPosts();
@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @DeleteMapping("/v1/user/{id}")
-    public void deleteUser(@PathVariable int id) {
+    public void deleteUser(@PathVariable String id) {
         userOperations.deleteUser(id);
     }
 

@@ -19,7 +19,7 @@ import com.trishla.aurora.post.lostDog.service.LostDogPostMatcher;
 import com.trishla.aurora.post.lostDog.service.LostDogPostOperations;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 public class LostDogController {
 
     @Autowired
