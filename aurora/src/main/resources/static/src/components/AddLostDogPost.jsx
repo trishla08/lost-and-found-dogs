@@ -1,21 +1,61 @@
 import React, { useReducer, useState } from "react";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Grid from "@mui/material/Grid";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import "./css/addLost.css";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const AddLostDogPostForm = () => {
-  const [title, setTitle] = useState("");
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
-  const [sex, setSex] = useState("");
-  const [breed, setBreed] = useState("");
-  const [ownerName, setOwnerName] = useState("");
-  const [ownerEmail, setOwnerEmail] = useState("");
-  const [ownerPhone, setOwnerPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const location = useLocation(); // Import useLocation hook from react-router-dom
+  const { editPostData } = location.state || {}; // Access the post data from location state
+  const { post } = location.state || {}; // Access the post data from location state
+  const [title, setTitle] = useState(editPostData ? editPostData.title : "");
+  const [name, setName] = useState(
+    editPostData ? editPostData.lostDog.name : ""
+  );
+  const [age, setAge] = useState(editPostData ? editPostData.lostDog.age : 0);
+  const [gender, setGender] = useState(
+    editPostData && editPostData.lostDog.gender
+      ? editPostData.lostDog.gender
+      : ""
+  );
+  const [breed, setBreed] = useState(
+    editPostData ? editPostData.lostDog.breed : ""
+  );
+  const [ownerName, setOwnerName] = useState(
+    editPostData ? editPostData.lostDog.ownerName : ""
+  );
+  const [ownerEmail, setOwnerEmail] = useState(
+    editPostData ? editPostData.lostDog.ownerEmail : ""
+  );
+  // const [ownerInfo, setOwnerInfo] = useState({ownerEmail:'',ownerName:});
+  const [ownerPhone, setOwnerPhone] = useState(
+    editPostData ? editPostData.lostDog.ownerPhone : ""
+  );
+  const [message, setMessage] = useState(
+    editPostData ? editPostData.lostDog.message : ""
+  );
   const [showMoreDetails, setShowMoreDetails] = useState(false); // State to toggle extra fields
   const [colours, setSelectedColors] = useState([]); // State to store selected colors
-  const [size, setSelectedSize] = useState("UNSPECIFIED");
-  const [collar, setCollar] = useState("UNSPECIFIED"); // Default value is "UNSPECIFIED"
-  const [coat, setCoat] = useState("UNSPECIFIED");
+  const [size, setSelectedSize] = useState(
+    editPostData ? editPostData.lostDog.distinctiveFeatures.size : "UNSPECIFIED"
+  );
+  const [collar, setCollar] = useState(
+    editPostData
+      ? editPostData.lostDog.distinctiveFeatures.collar
+      : "UNSPECIFIED"
+  );
+  const [coat, setCoat] = useState(
+    editPostData ? editPostData.lostDog.distinctiveFeatures.coat : "UNSPECIFIED"
+  );
   const [uid, setUser] = useState(1);
 
   // List of color options
@@ -43,13 +83,23 @@ const AddLostDogPostForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    console.log(user);
+    if (!user) {
+      // User is not logged in, handle the case accordingly
+      console.log("User is not logged in.");
+      return;
+    }
+
     const newLostDogPost = {
       title,
       lostDog: {
         name,
-        age,
-        sex,
         breed,
+        age,
+        gender,
         ownerName,
         ownerEmail,
         ownerPhone,
@@ -66,21 +116,34 @@ const AddLostDogPostForm = () => {
         },
       },
       user: {
-        uid,
+        uid: user.uid,
       },
     };
+    console.log(user.uid);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/v1/dog/lost",
-        newLostDogPost
-      );
-      console.log(response.data); // Handle the response as needed
+      if (editPostData) {
+        newLostDogPost.uid = editPostData.uid;
+        console.log(newLostDogPost);
+        // If there's editPostData, perform a PUT request to update the post
+        const response = await axios.put(
+          `http://localhost:8080/v1/dog/lost/${editPostData.uid}`,
+          newLostDogPost
+        );
+        console.log(response.data);
+      } else {
+        // Otherwise, perform a POST request to create a new post
+        const response = await axios.post(
+          "http://localhost:8080/v1/dog/lost",
+          newLostDogPost
+        );
+        console.log(response.data);
+      }
       // Reset form fields
       setTitle("");
       setName("");
       setAge(0);
-      setSex("");
+      setGender("");
       setBreed("");
       setOwnerName("");
       setOwnerEmail("");
@@ -95,200 +158,235 @@ const AddLostDogPostForm = () => {
 
   return (
     <div className="container">
-      <h2 className="headerStyle">🐶 Add Lost Dog Post 🐾</h2>
+      <div className="banner">
+        <h1>
+          <center>{editPostData ? "Edit Your Post" : "Add a lost dog"}</center>
+        </h1>
+      </div>
+
       <form onSubmit={handleSubmit} className="formStyle">
-        <div className="inputContainerStyle">
-          <label htmlFor="title" className="labelStyle">
+        <Box marginBottom={2}>
+          <InputLabel htmlFor="title" className="labelStyle">
             What should be the title of your post?
-          </label>
-          <input
-            type="text"
+          </InputLabel>
+          <TextField
             id="title"
+            label="Title"
+            variant="standard"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            className="inputStyle"
-            style={{ width: "100%", marginBottom: "15px" }}
+            fullWidth
           />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="name" className="labelStyle">
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="inputStyle"
-          />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="age" className="labelStyle">
-            Age:
-          </label>
-          <input
-            type="number"
-            id="age"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            required
-            className="inputStyle"
-          />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="sex" className="labelStyle">
-            Sex:
-          </label>
-          <select
-            id="sex"
-            value={sex}
-            onChange={(e) => setSex(e.target.value)}
-            required
-            className="inputStyle"
-          >
-            <option value="">Select a sex</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="breed" className="labelStyle">
-            Breed:
-          </label>
-          <input
-            type="text"
-            id="breed"
-            value={breed}
-            onChange={(e) => setBreed(e.target.value)}
-            required
-            className="inputStyle"
-          />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="ownerName" className="labelStyle">
-            Owner Name:
-          </label>
-          <input
-            type="text"
-            id="ownerName"
-            value={ownerName}
-            onChange={(e) => setOwnerName(e.target.value)}
-            required
-            className="inputStyle"
-          />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="ownerEmail" className="labelStyle">
-            Owner Email:
-          </label>
-          <input
-            type="text"
-            id="ownerEmail"
-            value={ownerEmail}
-            onChange={(e) => setOwnerEmail(e.target.value)}
-            required
-            className="inputStyle"
-          />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="ownerPhone" className="labelStyle">
-            Owner Phone:
-          </label>
-          <input
-            type="text"
-            id="ownerPhone"
-            value={ownerPhone}
-            onChange={(e) => setOwnerPhone(e.target.value)}
-            required
-            className="inputStyle"
-          />
-        </div>
-        <div className="inputContainerStyle">
-          <label htmlFor="message" className="labelStyle">
-            Message you'd like to add:
-          </label>
-          <input
-            type="text"
+        </Box>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <InputLabel htmlFor="name" className="labelStyle">
+              Name of the dog
+            </InputLabel>
+            <TextField
+              id="name"
+              variant="standard"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              fullWidth
+            />
+          </Grid>
+        </Grid>
+
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <InputLabel htmlFor="age" className="labelStyle">
+              Age
+            </InputLabel>
+            <TextField
+              type="number"
+              id="age"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              variant="standard"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <InputLabel htmlFor="gender" className="labelStyle">
+              Gender
+            </InputLabel>
+            <Select
+              id="gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              variant="standard"
+              fullWidth
+            >
+              <MenuItem value="MALE">Male</MenuItem>
+              <MenuItem value="FEMALE">Female</MenuItem>
+            </Select>
+          </Grid>
+          <Grid item xs={4}>
+            <InputLabel htmlFor="breed" className="labelStyle">
+              Breed
+            </InputLabel>
+            <TextField
+              id="breed"
+              variant="standard"
+              value={breed}
+              onChange={(e) => setBreed(e.target.value)}
+              fullWidth
+            />
+          </Grid>
+        </Grid>
+        <hr></hr>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <Box marginBottom={2}>
+              <InputLabel htmlFor="ownerName" className="labelStyle">
+                Owner Name
+              </InputLabel>
+              <TextField
+                id="ownerName"
+                variant="standard"
+                value={ownerName}
+                onChange={(e) => setOwnerName(e.target.value)}
+                required
+                fullWidth
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box marginBottom={2}>
+              <InputLabel htmlFor="ownerEmail" className="labelStyle">
+                Owner Email
+              </InputLabel>
+              <TextField
+                id="ownerEmail"
+                variant="standard"
+                value={ownerEmail}
+                onChange={(e) => setOwnerEmail(e.target.value)}
+                required
+                fullWidth
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box marginBottom={2}>
+              <InputLabel htmlFor="ownerPhone" className="labelStyle">
+                Owner Phone
+              </InputLabel>
+              <TextField
+                id="ownerPhone"
+                variant="standard"
+                value={ownerPhone}
+                onChange={(e) => setOwnerPhone(e.target.value)}
+                required
+                fullWidth
+              />
+            </Box>
+          </Grid>
+        </Grid>
+        <Box marginBottom={2}>
+          <InputLabel htmlFor="message" className="labelStyle">
+            Add a message to your post (anything additional you'd like to call
+            out!)
+          </InputLabel>
+          <TextField
             id="message"
+            label="Message"
+            variant="standard"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            required
-            className="inputStyle"
+            fullWidth
           />
-        </div>
+        </Box>
         {!showMoreDetails && (
-          <button
+          <Button
             type="button"
-            className="addDetailsButton"
+            variant="contained"
+            color="primary"
             onClick={() => setShowMoreDetails(true)}
           >
             Add more details
-          </button>
+          </Button>
         )}
-        {/* Extra fields for DogPhysicalAttributes */}
         {showMoreDetails && (
-          <>
-            <div className="inputContainerStyle">
-              <label className="labelStyle">Colours:</label>
-              <div className="colorOptionsContainer">
-                {colorOptions.map((color) => (
-                  <div key={color} className="colorOption">
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={colours.includes(color)}
-                        onChange={() => handleColorChange(color)}
-                      />
-                      {color}
-                    </label>
+          <div>
+            <Grid container spacing={2}>
+              <Box marginBottom={2}>
+                <Grid item xs={6}>
+                  <InputLabel className="labelStyle">Colours</InputLabel>
+                  <div className="colorOptionsContainer">
+                    {colorOptions.map((color) => (
+                      <div key={color} className="colorOption">
+                        <label>
+                          <input
+                            type="checkbox"
+                            checked={colours.includes(color)}
+                            onChange={() => handleColorChange(color)}
+                          />
+                          {color}
+                        </label>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="inputContainerStyle">
-              <label className="labelStyle">Size:</label>
-              <div className="radioGroup">
-                {sizeOptions.map((sizeOption) => (
-                  <div key={sizeOption} className="radioOption">
-                    <label>
-                      <input
-                        type="radio"
-                        value={sizeOption}
-                        checked={size === sizeOption}
-                        onChange={(e) => setSelectedSize(e.target.value)}
-                      />
-                      {sizeOption}
-                    </label>
+                </Grid>
+              </Box>
+              <Box marginBottom={2}>
+                <Grid item xs={6}>
+                  <InputLabel className="labelStyle">Size:</InputLabel>
+                  <div className="radioGroup">
+                    {sizeOptions.map((sizeOption) => (
+                      <div key={sizeOption} className="radioOption">
+                        <label>
+                          <input
+                            type="radio"
+                            value={sizeOption}
+                            checked={size === sizeOption}
+                            onChange={(e) => setSelectedSize(e.target.value)}
+                          />
+                          {sizeOption}
+                        </label>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="inputContainerStyle">
-              <label className="labelStyle">Collar:</label>
-              <select value={collar} onChange={handleCollarChange}>
-                <option value="UNSPECIFIED">UNSPECIFIED</option>
-                <option value="COLLAR">COLLAR</option>
-                <option value="NO_COLLAR">NO_COLLAR</option>
-              </select>
-            </div>
-            <div className="inputContainerStyle">
-              <label className="labelStyle">Coat:</label>
-              <select value={coat} onChange={handleCoatChange}>
-                <option value="UNSPECIFIED">UNSPECIFIED</option>
-                <option value="COAT">COAT</option>
-                <option value="NO_COAT">NO_COAT</option>
-              </select>
-            </div>
+                </Grid>
+              </Box>
+            </Grid>
+            <Grid container spacing={2}>
+              <Box marginBottom={2}>
+                <Grid item xs={6}>
+                  <FormControl variant="standard">
+                    <InputLabel className="labelStyle">Collar:</InputLabel>
+                    <Select value={collar} onChange={handleCollarChange}>
+                      <MenuItem value="UNSPECIFIED">UNSPECIFIED</MenuItem>
+                      <MenuItem value="COLLAR">COLLAR</MenuItem>
+                      <MenuItem value="NO_COLLAR">NO_COLLAR</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Box>
+              <Box marginBottom={6}>
+                <Grid item xs={4}>
+                  <FormControl variant="standard">
+                    <InputLabel className="labelStyle">Coat:</InputLabel>
+                    <Select value={coat} onChange={handleCoatChange}>
+                      <MenuItem value="UNSPECIFIED">UNSPECIFIED</MenuItem>
+                      <MenuItem value="COAT">COAT</MenuItem>
+                      <MenuItem value="NO_COAT">NO_COAT</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Box>
+            </Grid>
             {/* Add other input fields for DogPhysicalAttributes as needed */}
-          </>
+          </div>
         )}
 
-        {/* Add other fields of LostDog as needed */}
-        <button type="submit" className="submitButtonStyle">
-          Submit
-        </button>
+        <Box marginBottom={2}>
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
+        </Box>
       </form>
     </div>
   );

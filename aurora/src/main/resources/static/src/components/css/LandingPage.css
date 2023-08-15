@@ -1,0 +1,36 @@
+.landing-page {
+  min-height: 105vh; /* Change to 100vh for full-page coverage */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff; /* Text color */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Optional text shadow */
+  background-image: url("https://i.ibb.co/HgDR5x3/dog-puppy-on-garden-royalty-free-image-1586966191.jpg"); /* Replace with your background image URL */
+  background-size: cover;
+  background-position: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Add any additional styles for your text and buttons */
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.MDBBtn {
+  margin: 8px;
+  font-size: 18px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  background-color: #007bff; /* Change to your desired button background color */
+  color: #ffffff; /* Button text color */
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.MDBBtn:hover {
+  background-color: #0056b3; /* Change to your desired button hover color */
+}
